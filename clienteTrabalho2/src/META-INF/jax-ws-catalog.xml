@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://localhost:13966/trabalho2/publicacao?wsdl" uri="wsdl/localhost_13966/trabalho2/publicacao.wsdl"/>
+    <system systemId="http://localhost:13966/trabalho2/publicacao?xsd=1" uri="wsdl/localhost_13966/trabalho2/publicacao.xsd_1.xsd"/>
+</catalog>
