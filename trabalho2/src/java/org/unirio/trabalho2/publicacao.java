@@ -6,6 +6,7 @@
 package org.unirio.trabalho2;
 
 import java.util.ArrayList;
+import java.util.Date;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -16,7 +17,8 @@ import javax.jws.WebParam;
  */
 @WebService(serviceName = "publicacao")
 public class publicacao {
-
+    
+    
     /**
      * Operação de Web service
      * @param txt
@@ -24,11 +26,14 @@ public class publicacao {
      */
     @WebMethod(operationName = "operacaoTeste")
     public ArrayList<Publicacoes> operacaoTeste(@WebParam(name = "titulo") String txt) {
+        Publicacoes novo = new Publicacoes();
         ArrayList<Publicacoes> resposta = new ArrayList<>();
-        
-        
+    
+        for(int i = 0; i < novo.getLista().size() ; i++){
+            if(novo.getLista().get(i).getTitulo().equals(txt)){
+                resposta.add(novo.getLista().get(i));
+            }
+        }
         return resposta;
-    }
-
-  
+    } 
 }

@@ -5,6 +5,7 @@
  */
 package org.unirio.trabalho2;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -13,12 +14,22 @@ import java.util.Date;
  */
 public class Publicacoes {
     private int id, paginaInicial, paginaFinal;
-    private String titulo;
-    private Date dataPublicacao;
+    private String titulo, dataPublicacao;
+    private ArrayList<Publicacoes> lista = new ArrayList<>(); 
     
-   public Publicacoes(){}
+   
+    public Publicacoes(){ 
+        
+        Publicacoes a = new Publicacoes(1, 1, 300, "O guia do mochileiro", "01-01-2017");
+        Publicacoes b = new Publicacoes(2, 1, 170, "Frankenstein", "02-14-1887");
+        Publicacoes c = new Publicacoes(3, 1, 400, "Moby Dick", "01-12-1796");
+        Publicacoes d = new Publicacoes(4, 1, 280, "O senhor dos aneis", "02-01-1948");
+        lista.add(a);
+        lista.add(b);
+        lista.add(c);
+        lista.add(d);}
 
-   public Publicacoes(int id, int paginaInicial, int paginaFinal, String titulo, Date dataPublicacao){
+   public Publicacoes(int id, int paginaInicial, int paginaFinal, String titulo, String dataPublicacao){
        this.id = id;
        this.paginaInicial = paginaInicial;
        this.paginaFinal = paginaFinal;
@@ -86,15 +97,29 @@ public class Publicacoes {
     /**
      * @return the dataPublicacao
      */
-    public Date getDataPublicacao() {
+    public String getDataPublicacao() {
         return dataPublicacao;
     }
 
     /**
      * @param dataPublicacao the dataPublicacao to set
      */
-    public void setDataPublicacao(Date dataPublicacao) {
+    public void setDataPublicacao(String dataPublicacao) {
         this.dataPublicacao = dataPublicacao;
+    }
+
+    /**
+     * @return the lista
+     */
+    public ArrayList<Publicacoes> getLista() {
+        return lista;
+    }
+
+    /**
+     * @param lista the lista to set
+     */
+    public void setLista(ArrayList<Publicacoes> lista) {
+        this.lista = lista;
     }
     
     
