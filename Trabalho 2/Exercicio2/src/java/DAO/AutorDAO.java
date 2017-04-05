@@ -23,30 +23,16 @@ public class AutorDAO {
     
     public AutorDAO(){}
     
-    private static void abrirConexao(){
-        try{
-            Class.forName("org.postgresql.Driver").newInstance();
-            conn = DriverManager.getConnection(dbURL, "postgres", "1234");
-        }catch(ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException except){
-        }
-        
-    }
-    private static void fecharConexao(){
-        try{
-            conn.close();
-        }catch(SQLException except){
-        }
-        
-    }
-    
-    public ArrayList<Autor> consultarPublicacao(String nome) throws Exception{
+    public ArrayList<Autor> consultarPublicacao(String nome) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException{
         PreparedStatement stmt = null;
         ResultSet rs = null;
         ArrayList<Autor> listaAutor = new ArrayList<>();
         Autor autor = null;
         try{
-            abrirConexao();
-            String sql = "select * from publicacao where titulo = ?";
+            Class.forName("org.postgresql.Driver").newInstance();
+            conn = DriverManager.getConnection(dbURL, "bernardo", "1234");
+            
+            String sql = "SELECT * FROM autor WHERE nome = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, nome);
             rs = stmt.executeQuery();
@@ -59,7 +45,7 @@ public class AutorDAO {
                 listaAutor.add(autor);
             }
         }finally{
-            fecharConexao();
+            conn.close();
         }
         return listaAutor;
     }
