@@ -14,13 +14,14 @@ import Modelo.Autor;
 import Modelo.Publicacao;
 import java.util.ArrayList;
 import java.util.List;
+import javax.jws.Oneway;
 /**
  *
  * @author Bernardo
  */
 @WebService(serviceName = "servicoConsulta")
 public class servicoConsulta {
-
+    private AutorDAO dao = new AutorDAO();
     /**
      * This is a sample web service operation
      * @param nomeAutor
@@ -29,9 +30,26 @@ public class servicoConsulta {
      */
     @WebMethod(operationName = "consultarAutor")
     public List<Autor> consultarAutor(@WebParam(name = "nomeAutor") String nomeAutor) throws Exception{
-        AutorDAO dao = new AutorDAO();
-        List<Autor> listaAutores = dao.consultarPublicacao(nomeAutor);
- 
-        return listaAutores;
+        List<Autor> listaAutores = dao.consultarAutor(nomeAutor);
+         return listaAutores;
     }
+    @WebMethod(operationName = "criarAutor")
+    public void  criarAutor(@WebParam(name = "autor") Autor autor) {
+        dao.inserirAutor(autor);
+    }
+    @WebMethod(operationName = "atualizarAutor")
+    public void  atualizarAutor(@WebParam(name = "autor") Autor autor, @WebParam(name = "nomeAtualizar") String nome) {
+        dao.atualizarAutor(autor, nome);
+    }
+
+    /**
+     * Operação de Web service
+     */
+    @WebMethod(operationName = "excluirAutor")
+    @Oneway
+    public void excluirAutor(@WebParam(name = "nome") String nome) {
+        dao.excluirAutor(nome);
+        
+    }
+
 }
