@@ -28,19 +28,10 @@ public class servicoConsulta {
      * @throws java.lang.Exception
      */
     @WebMethod(operationName = "consultarAutor")
-    public ArrayList<Autor> consultarAutor(@WebParam(name = "nome") String nomeAutor) throws Exception{
+    public List<Autor> consultarAutor(@WebParam(name = "nomeAutor") String nomeAutor) throws Exception{
         AutorDAO dao = new AutorDAO();
-        ArrayList<Autor> listaAutores = dao.consultarPublicacao(nomeAutor);
-        ArrayList<Autor> resposta = new ArrayList<>();
-        for (int i = 0; i< listaAutores.size() ; i++)
-            if(listaAutores.get(i).getNome().equals(nomeAutor)){
-                resposta.add(listaAutores.get(i));
-                System.out.println(resposta.get(i).getNome());
-                System.out.println(resposta.get(i).getCpf());
-                System.out.println(resposta.get(i).getId());
-                System.out.println(resposta.get(i).getNome_de_citacao());
-            }
-       
-        return resposta;
+        List<Autor> listaAutores = dao.consultarPublicacao(nomeAutor);
+ 
+        return listaAutores;
     }
 }

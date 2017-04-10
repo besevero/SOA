@@ -1,4 +1,4 @@
-CREATE TABLE autores(
+﻿CREATE TABLE autores(
 	id SERIAL PRIMARY KEY,
     nome VARCHAR(30),
     nome_de_citacao VARCHAR(30),
@@ -6,7 +6,7 @@ CREATE TABLE autores(
 );
 
 INSERT INTO autores(nome, nome_de_citacao, cpf)
-VALUES('Leonardo Guerreiro Azevedo', 'AZEVEDO', 721479146);
+VALUES('Leonardo Guerreiro Azevedo', 'AZEVEDO', 72147914);
 
 INSERT INTO autores(nome, nome_de_citacao, cpf)
 VALUES('Márcio de Oliveira Barros', 'BARROS', 082156232);

@@ -11,42 +11,47 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author Bernardo
  */
 public class AutorDAO {
-    private static String dbURL = "jdbc:postgresql://localhost:8080//SOA";
-    private static Connection conn = null;
+    private String dbURL = "jdbc:postgresql://localhost:5432/SOA";
+    private String usuario = "postgres";
+    private String senha = "1234";
     
     public AutorDAO(){}
     
-    public ArrayList<Autor> consultarPublicacao(String nome) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException{
-        PreparedStatement stmt = null;
+    public List<Autor> consultarPublicacao(String nome) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException{
+        Statement stmt = null;
         ResultSet rs = null;
-        ArrayList<Autor> listaAutor = new ArrayList<>();
+        List<Autor> listaAutor = new ArrayList<>();
         Autor autor = null;
+        Connection conn = null;
         try{
             Class.forName("org.postgresql.Driver").newInstance();
-            conn = DriverManager.getConnection(dbURL, "bernardo", "1234");
+            conn = DriverManager.getConnection(dbURL, usuario, senha);
+  
+            String sql = "SELECT * FROM autores;";
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(sql);
             
-            String sql = "SELECT * FROM autor WHERE nome = ?";
-            stmt = conn.prepareStatement(sql);
-            stmt.setString(1, nome);
-            rs = stmt.executeQuery();
             while(rs.next()){
                 autor = new Autor();
                 autor.setId(rs.getInt("id"));
                 autor.setNome(rs.getString("nome"));
-                autor.setNome_de_citacao(rs.getString("nome_de_sitacao"));
+                autor.setNome_de_citacao(rs.getString("nome_de_citacao"));
                 autor.setCpf(rs.getInt("cpf"));
                 listaAutor.add(autor);
             }
-        }finally{
+            rs.close();
+            stmt.close();
             conn.close();
-        }
+        }catch(SQLException e){}
         return listaAutor;
     }
 
