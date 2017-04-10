@@ -33,5 +33,22 @@
         <delete dir="${build.generated.dir}/jax-wsCache/servicoConsulta"/>
         <delete dir="${build.generated.sources.dir}/jax-ws/servico"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-servicoConsulta"/>
+    <target name="wsimport-client-servicoPublicacao" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/servicoPublicacao"/>
+        <property name="wsdl-servicoPublicacao" location="xml-resources/web-service-references/servicoPublicacao/wsdl/localhost_8080/Exercicio2/servicoPublicacao.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/servicoPublicacao" destdir="${build.generated.dir}/jax-wsCache/servicoPublicacao" wsdl="${wsdl-servicoPublicacao}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/Exercicio2/servicoPublicacao?wsdl" xnocompile="true" xendorsed="true" package="exercicio2cliente">
+            <depends file="${wsdl-servicoPublicacao}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/servicoPublicacao"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/servicoPublicacao">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-servicoPublicacao" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/servicoPublicacao"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/exercicio2cliente"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-servicoConsulta, wsimport-client-servicoPublicacao"/>
 </project>

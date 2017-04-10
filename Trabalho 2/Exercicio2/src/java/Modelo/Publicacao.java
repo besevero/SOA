@@ -17,7 +17,9 @@ public class Publicacao {
     private String titulo ;
     private Date dataPublicacao;
     
-    public Publicacao(){};
+    public Publicacao(){}
+    
+    
     /**
      * @return the id
      */
@@ -87,4 +89,5 @@ public class Publicacao {
     public void setDataPublicacao(Date dataPublicacao) {
         this.dataPublicacao = dataPublicacao;
     }
-}    
+    
+};

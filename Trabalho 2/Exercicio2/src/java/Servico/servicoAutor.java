@@ -9,9 +9,7 @@ import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import DAO.AutorDAO;
-import DAO.publicacaoDAO;
 import Modelo.Autor;
-import Modelo.Publicacao;
 import java.util.ArrayList;
 import java.util.List;
 import javax.jws.Oneway;
@@ -20,7 +18,7 @@ import javax.jws.Oneway;
  * @author Bernardo
  */
 @WebService(serviceName = "servicoConsulta")
-public class servicoConsulta {
+public class servicoAutor {
     private AutorDAO dao = new AutorDAO();
     /**
      * This is a sample web service operation
@@ -47,7 +45,7 @@ public class servicoConsulta {
      */
     @WebMethod(operationName = "excluirAutor")
     @Oneway
-    public void excluirAutor(@WebParam(name = "nome") String nome) {
+    public void excluirAutor(@WebParam(name = "autor") String nome) {
         dao.excluirAutor(nome);
         
     }
