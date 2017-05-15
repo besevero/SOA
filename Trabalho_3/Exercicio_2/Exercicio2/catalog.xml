@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/C:/Users/Bernardo/Documents/GitHub/SOA/Trabalho%203/Exercicio%202/AtendeCliente.xml" uri="src/conf/xml-resources/web-services/correiosWebService/wsdl/AtendeCliente.xml.wsdl"/>
+    <system systemId="file:/C:/Users/Bernardo/Documents/GitHub/SOA/Trabalho_3/Exercicio_2/AtendeCliente.xml" uri="src/conf/xml-resources/web-services/NewWebServiceFromWSDL/wsdl/AtendeCliente.xml.wsdl"/>
+</catalog>

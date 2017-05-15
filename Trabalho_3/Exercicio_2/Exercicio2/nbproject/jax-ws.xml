@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
+  <services>
+    <service name="servicoAutor">
+      <implementation-class>Servico.servicoAutor</implementation-class>
+    </service>
+    <service name="servicoPublicacao">
+      <implementation-class>Servico.servicoPublicacao</implementation-class>
+    </service>
+    <service name="NewWebServiceFromWSDL">
+      <implementation-class>Servico.ServicoCorreios</implementation-class>
+      <wsdl-url>file:/C:/Users/Bernardo/Documents/GitHub/SOA/Trabalho_3/Exercicio_2/AtendeCliente.xml</wsdl-url>
+      <local-wsdl-file>AtendeCliente.xml.wsdl</local-wsdl-file>
+      <service-name>AtendeClienteService</service-name>
+      <port-name>AtendeClientePort</port-name>
+      <package-name>br.com.correios.bsb.sigep.master.bean.cliente</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>fork</wsimport-option-name>
+          <wsimport-option-value>false</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xendorsed</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+  </services>
+  <clients/>
+  <jsr109>true</jsr109>
+</jax-ws>
