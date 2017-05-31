@@ -4,28 +4,26 @@
  * and open the template in the editor.
  */
 package DAO;
-
-import Modelo.Autor;
-import java.sql.Connection;
-import java.sql.DriverManager;
+import Modelo.PublicacaoModelo;
+import java.sql.Connection;  
+import java.sql.DriverManager;  
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- *teste
+ *
  * @author Bernardo
  */
-public class AutorDAO {
-    private static String dbURL = "jdbc:postgresql://localhost:5432/SOA";
+public class publicacaoDAO {
+   private static String dbURL = "jdbc:postgresql://localhost:5432/SOA";
     private static String usuario = "postgres";
     private static String senha = "1234";
     private static Connection conn = null;
     
-    public AutorDAO(){}
+    public publicacaoDAO(){}
     private static void abrirConexao(){
         try{
             Class.forName("org.postgresql.Driver").newInstance();
@@ -37,51 +35,53 @@ public class AutorDAO {
     private static void fecharConexao(){
         try{
             conn.close();
-        }catch (Exception e){
+        }catch (SQLException e){
             e.printStackTrace();
         }
     }
     
-    public List<Autor> consultarAutor(String nome) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException{
+    public ArrayList<PublicacaoModelo> consultarPublicacao(String titulo) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException{
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        List<Autor> listaAutor = new ArrayList<>();
-        Autor autor = null;
+        ArrayList<PublicacaoModelo> listaPublicacao = new ArrayList<>();
+        PublicacaoModelo publicacao = null;
         
         try{
             abrirConexao();
   
-            String sql = "SELECT * FROM autores WHERE nome = ?;";
+            String sql = "SELECT * FROM publicacao WHERE titulo = ?";
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1,nome);
+            stmt.setString(1,titulo);
             rs = stmt.executeQuery();
             
             while(rs.next()){
-                autor = new Autor();
-                autor.setId(rs.getInt("id"));
-                autor.setNome(rs.getString("nome"));
-                autor.setNome_de_citacao(rs.getString("nome_de_citacao"));
-                autor.setCpf(rs.getInt("cpf"));
-                listaAutor.add(autor);
+                publicacao = new PublicacaoModelo();
+                publicacao.setTitulo(rs.getString("titulo"));
+                publicacao.setId(rs.getInt("id"));
+                publicacao.setPaginaFinal(rs.getInt("paginafinal"));
+                publicacao.setPaginaInicial(rs.getInt("paginainicial"));
+                publicacao.setDataPublicacao(rs.getString("datapublicacao"));
+                listaPublicacao.add(publicacao);
             }
             rs.close();
             stmt.close();
             fecharConexao();
         }catch(SQLException e){}
-        return listaAutor;
+        return listaPublicacao;
     }
-    public void inserirAutor(Autor autor){
+    public void inserirPublicacao(PublicacaoModelo publicacao){
         PreparedStatement stmt = null;
         ResultSet rs = null;
                 
         try{
             abrirConexao();
   
-            String sql = "INSERT INTO autores(nome, nome_de_citacao, cpf)VALUES(?,?,?);";
+            String sql = "INSERT INTO publicacao(titulo, paginainicial, paginafinal, datapublicacao)VALUES(?,?,?, ?);";
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1,autor.getNome());
-            stmt.setString(2,autor.getNome_de_citacao());
-            stmt.setInt(3,autor.getCpf());
+            stmt.setString(1,publicacao.getTitulo());
+            stmt.setInt(2,publicacao.getPaginaInicial());
+            stmt.setInt(3,publicacao.getPaginaFinal());
+            stmt.setString(4, publicacao.getDataPublicacao());
             rs = stmt.executeQuery();
             
             rs.close();
@@ -91,38 +91,38 @@ public class AutorDAO {
             
         }catch(SQLException e){}
     }
-    public void atualizarAutor(Autor autor, String nomeAlterar){
+    public void atualizarPublicacao(PublicacaoModelo publicacao, String alterarTitulo){
         PreparedStatement stmt = null;
         ResultSet rs = null;
                 
         try{
             abrirConexao();
-            String sql = "UPDATE autores SET nome = ?, nome_de_citacao = ?, cpf = ? WHERE nome = ?";
+            String sql = "UPDATE publicacao SET titulo = ?, paginainicial = ?, paginafinal= ?, datapublicacao = ? WHERE titulo = ?";
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1,autor.getNome());
-            stmt.setString(2,autor.getNome_de_citacao());
-            stmt.setInt(3,autor.getCpf());
-            stmt.setString(4,nomeAlterar);
+            stmt.setString(1,publicacao.getTitulo());
+            stmt.setInt(2,publicacao.getPaginaInicial());
+            stmt.setInt(3,publicacao.getPaginaFinal());
+            stmt.setString(4, publicacao.getDataPublicacao());
+            stmt.setString(5,alterarTitulo);
             rs = stmt.executeQuery();
             rs.close();
             stmt.close();
             fecharConexao();
         }catch(SQLException e){}
     }
-    public void excluirAutor(String nome){
+    public void excluirPublicacao(String titulo){
         PreparedStatement stmt = null;
         ResultSet rs = null;
                 
         try{
             abrirConexao();
-            String sql = "DELETE FROM autores WHERE nome = ?";
+            String sql = "DELETE FROM publicacao WHERE titulo= ?";
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1,nome);
+            stmt.setString(1,titulo);
             rs = stmt.executeQuery();
             rs.close();
             stmt.close();
             fecharConexao();
         }catch(SQLException e){}
     }
-
 }
