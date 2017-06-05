@@ -1,0 +1,23 @@
+import psycopg2
+
+class autorDAO:
+    def conectar(nomeDB, usuario, senha):
+
+        # Try to connect
+
+        try:
+            conn=psycopg2.connect("dbname='SOA' user='postgres' password='admin'")
+        except:
+            print "Nao foi possivel acessar o banco de dados."
+
+    
+    cur = conn.cursor()
+        try:
+            cur.execute("""SELECT * from autor""")
+        except:
+            print "I can't SELECT from bar"
+
+    rows = cur.fetchall()
+    print "\nRows: \n"
+    for row in rows:
+        print "   ", row[1]

@@ -1,0 +1,100 @@
+
+CREATE TABLE public.pais (
+                nome_pais VARCHAR(30) NOT NULL,
+                CONSTRAINT pais_pk PRIMARY KEY (nome_pais)
+);
+
+
+CREATE TABLE public.cidade (
+                id_cidade SERIAL NOT NULL,
+                nome VARCHAR(30) NOT NULL,
+                nome_pais VARCHAR(30) NOT NULL,
+                CONSTRAINT cidade_pk PRIMARY KEY (id_cidade)
+);
+
+
+CREATE TABLE public.forum (
+                id_forum SERIAL NOT NULL,
+                nome VARCHAR(100) NOT NULL,
+                sigla VARCHAR(30) NOT NULL,
+                CONSTRAINT forum_pk PRIMARY KEY (id_forum)
+);
+
+
+CREATE TABLE public.edicao_forum (
+                id_edicao SERIAL NOT NULL,
+                ano INTEGER NOT NULL,
+                qualis VARCHAR(30) NOT NULL,
+                id_forum INTEGER NOT NULL,
+                id_cidade INTEGER NOT NULL,
+                CONSTRAINT edicao_forum_pk PRIMARY KEY (id_edicao)
+);
+
+
+CREATE TABLE public.producao (
+                Id_Publicacao SERIAL NOT NULL,
+                titulo VARCHAR(100) NOT NULL,
+                pagina_inicial INTEGER NOT NULL,
+                pagina_final INTEGER NOT NULL,
+                id_forum INTEGER NOT NULL,
+                CONSTRAINT producao_pk PRIMARY KEY (Id_Publicacao)
+);
+
+
+CREATE TABLE public.autor (
+                Id_Autor SERIAL NOT NULL,
+                nome VARCHAR(30) NOT NULL,
+                nome_citacao VARCHAR(30) NOT NULL,
+                cpf VARCHAR(13) NOT NULL,
+                CONSTRAINT autor_pk PRIMARY KEY (Id_Autor)
+);
+
+
+CREATE TABLE public.escreve (
+                Id_Autor INTEGER NOT NULL,
+                Id_Publicacao INTEGER NOT NULL,
+                CONSTRAINT escreve_pk PRIMARY KEY (Id_Autor, Id_Publicacao)
+);
+
+
+ALTER TABLE public.cidade ADD CONSTRAINT pais_cidade_fk
+FOREIGN KEY (nome_pais)
+REFERENCES public.pais (nome_pais)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE public.edicao_forum ADD CONSTRAINT cidade_edicao_forum_fk
+FOREIGN KEY (id_cidade)
+REFERENCES public.cidade (id_cidade)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE public.edicao_forum ADD CONSTRAINT forum_edicao_forum_fk
+FOREIGN KEY (id_forum)
+REFERENCES public.forum (id_forum)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE public.producao ADD CONSTRAINT forum_producao_fk
+FOREIGN KEY (id_forum)
+REFERENCES public.edicao_forum (id_edicao)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE public.escreve ADD CONSTRAINT producao_escreve_fk
+FOREIGN KEY (Id_Publicacao)
+REFERENCES public.producao (Id_Publicacao)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE public.escreve ADD CONSTRAINT autor_escreve_fk
+FOREIGN KEY (Id_Autor)
+REFERENCES public.autor (Id_Autor)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
